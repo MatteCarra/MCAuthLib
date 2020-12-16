@@ -16,32 +16,15 @@ import java.util.UUID;
  * Service used for authenticating users.
  */
 public abstract class AuthenticationService extends Service {
-    protected String clientToken;
     protected String accessToken;
     protected boolean loggedIn;
     protected String username;
-    protected String password;
     protected GameProfile selectedProfile;
     protected List<GameProfile.Property> properties = new ArrayList<>();
     protected List<GameProfile> profiles = new ArrayList<>();
 
-    public AuthenticationService(String clientToken, URI defaultURI) {
+    public AuthenticationService(URI defaultURI) {
         super(defaultURI);
-
-        if(clientToken == null) {
-            throw new IllegalArgumentException("ClientToken cannot be null.");
-        }
-
-        this.clientToken = clientToken;
-    }
-
-    /**
-     * Gets the client token of the service.
-     *
-     * @return The service's client token.
-     */
-    public String getClientToken() {
-        return this.clientToken;
     }
 
     /**
@@ -72,15 +55,6 @@ public abstract class AuthenticationService extends Service {
     }
 
     /**
-     * Gets the password of the service.
-     *
-     * @return The user's ID.
-     */
-    public String getPassword() {
-        return this.password;
-    }
-
-    /**
      * Sets the username of the service.
      *
      * @param username Username to set.
@@ -90,19 +64,6 @@ public abstract class AuthenticationService extends Service {
             throw new IllegalStateException("Cannot change username while user is logged in and profile is selected.");
         } else {
             this.username = username;
-        }
-    }
-
-    /**
-     * Sets the password of the service.
-     *
-     * @param password Password to set.
-     */
-    public void setPassword(String password) {
-        if(this.loggedIn && this.selectedProfile != null) {
-            throw new IllegalStateException("Cannot change password while user is logged in and profile is selected.");
-        } else {
-            this.password = password;
         }
     }
 

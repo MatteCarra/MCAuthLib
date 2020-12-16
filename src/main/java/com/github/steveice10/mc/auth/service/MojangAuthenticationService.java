@@ -18,6 +18,8 @@ public class MojangAuthenticationService extends AuthenticationService {
     private static final String INVALIDATE_ENDPOINT = "invalidate";
 
     private String id;
+    private String clientToken;
+    protected String password;
 
     /**
      * Creates a new AuthenticationService instance.
@@ -32,7 +34,7 @@ public class MojangAuthenticationService extends AuthenticationService {
      * @param clientToken Client token to use when making authentication requests.
      */
     public MojangAuthenticationService(String clientToken) {
-        super(clientToken, DEFAULT_BASE_URI);
+        super(DEFAULT_BASE_URI);
 
         if(clientToken == null) {
             throw new IllegalArgumentException("ClientToken cannot be null.");
@@ -48,6 +50,32 @@ public class MojangAuthenticationService extends AuthenticationService {
      */
     public String getId() {
         return this.id;
+    }
+
+    public String getClientToken() {
+        return clientToken;
+    }
+
+    /**
+     * Gets the password of the service.
+     *
+     * @return The user's ID.
+     */
+    public String getPassword() {
+        return this.password;
+    }
+
+    /**
+     * Sets the password of the service.
+     *
+     * @param password Password to set.
+     */
+    public void setPassword(String password) {
+        if(this.loggedIn && this.selectedProfile != null) {
+            throw new IllegalStateException("Cannot change password while user is logged in and profile is selected.");
+        } else {
+            this.password = password;
+        }
     }
 
     @Override
