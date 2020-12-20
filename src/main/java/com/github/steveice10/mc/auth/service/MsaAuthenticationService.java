@@ -141,7 +141,7 @@ public class MsaAuthenticationService extends AuthenticationService {
     public String toString() {
         return "MsaAuthenticationService{" +
                 "deviceCode='" + this.deviceCode + '\'' +
-                ", clientToken='" + this.clientId + '\'' +
+                ", clientId='" + this.clientId + '\'' +
                 ", accessToken='" + this.accessToken + '\'' +
                 ", loggedIn=" + this.loggedIn +
                 ", username='" + this.username + '\'' +
