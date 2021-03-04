@@ -110,6 +110,16 @@ public class MsaAuthenticationService extends AuthenticationService {
     public void login() throws RequestException {
         boolean token = this.clientId != null && !this.clientId.isEmpty();
         boolean device = this.deviceCode != null && !this.deviceCode.isEmpty();
+        boolean password = this.password != null && !this.password.isEmpty();
+        if(!token && !password) {
+            throw new InvalidCredentialsException("Invalid password or access token.");
+        }
+        if(password && (this.username == null || this.username.isEmpty())) {
+            throw new InvalidCredentialsException("Invalid username.");
+        }
+        if(password) {
+            // TODO: Password-based auth to generate token
+        }
         if(!device) {
             this.deviceCode = getAuthCode().device_code;
         }
@@ -141,10 +151,11 @@ public class MsaAuthenticationService extends AuthenticationService {
     public String toString() {
         return "MsaAuthenticationService{" +
                 "deviceCode='" + this.deviceCode + '\'' +
-                ", clientToken='" + this.clientId + '\'' +
+                ", clientId='" + this.clientId + '\'' +
                 ", accessToken='" + this.accessToken + '\'' +
                 ", loggedIn=" + this.loggedIn +
                 ", username='" + this.username + '\'' +
+                ", password='" + this.password + '\'' +
                 ", selectedProfile=" + this.selectedProfile +
                 ", properties=" + this.properties +
                 ", profiles=" + this.profiles +
