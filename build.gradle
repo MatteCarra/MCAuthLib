@@ -3,39 +3,28 @@
  */
 
 plugins {
-    id 'java'
-    id 'maven-publish'
+    id("com.android.library")
 }
 
-repositories {
-    mavenLocal()
-    maven {
-        url = uri('https://repo.maven.apache.org/maven2/')
+android {
+    compileSdkVersion(setup.compileSdk)
+    buildToolsVersion(setup.buildTools)
+
+    defaultConfig {
+        minSdkVersion(setup.minSdk)
+        targetSdkVersion(setup.targetSdk)
+        versionCode(1)
+        versionName("1.0")
     }
-}
 
-dependencies {
-    implementation 'com.google.code.gson:gson:2.8.6'
-}
-
-group = 'com.github.steveice10'
-version = '1.5-SNAPSHOT'
-description = 'MCAuthLib'
-java.sourceCompatibility = JavaVersion.VERSION_1_7
-
-java {
-    withSourcesJar()
-    withJavadocJar()
-}
-
-publishing {
-    publications {
-        maven(MavenPublication) {
-            from(components.java)
+    buildTypes {
+        getByName("release") {
+            minifyEnabled(false)
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
 }
 
-tasks.withType(JavaCompile) {
-    options.encoding = 'UTF-8'
+dependencies {
+    api 'com.google.code.gson:gson:2.8.6'
 }
