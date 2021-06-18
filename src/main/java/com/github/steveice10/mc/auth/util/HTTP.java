@@ -110,9 +110,9 @@ public class HTTP {
             }
 
             try {
-                inputString.append(URLEncoder.encode(inputField.getKey(), StandardCharsets.UTF_8.toString()));
+                inputString.append(URLEncoder.encode(inputField.getKey(), (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT ? StandardCharsets.UTF_8 : java.nio.charset.Charset.forName("UTF-8")).toString()));
                 inputString.append("=");
-                inputString.append(URLEncoder.encode(inputField.getValue(), StandardCharsets.UTF_8.toString()));
+                inputString.append(URLEncoder.encode(inputField.getValue(), (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT ? StandardCharsets.UTF_8 : java.nio.charset.Charset.forName("UTF-8")).toString()));
             } catch (UnsupportedEncodingException ignored) { }
         }
 
@@ -170,7 +170,7 @@ public class HTTP {
     }
 
     private static JsonElement performPostRequest(Proxy proxy, URI uri, Map<String, String> extraHeaders, String post, String type) throws IOException {
-        byte[] bytes = post.getBytes(StandardCharsets.UTF_8);
+        byte[] bytes = post.getBytes((android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT ? StandardCharsets.UTF_8 : java.nio.charset.Charset.forName("UTF-8")));
 
         HttpURLConnection connection = createUrlConnection(proxy, uri);
         connection.setRequestProperty("Content-Type", type + "; charset=utf-8");

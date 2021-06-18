@@ -13,6 +13,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.security.KeyFactory;
 import java.security.PublicKey;
@@ -223,7 +224,7 @@ public class GameProfile {
 
                 MinecraftTexturesPayload result;
                 try {
-                    String json = new String(Base64.decode(textures.getValue().getBytes(StandardCharsets.UTF_8)));
+                    String json = new String(Base64.decode(textures.getValue().getBytes((android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT ? StandardCharsets.UTF_8 : java.nio.charset.Charset.forName("UTF-8")))));
                     result = GSON.fromJson(json, MinecraftTexturesPayload.class);
                 } catch(Exception e) {
                     throw new ProfileTextureException("Could not decode texture payload.", e);
