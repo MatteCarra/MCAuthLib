@@ -19,8 +19,6 @@ android {
         multiDexEnabled true
         minSdkVersion(setup.minSdk)
         targetSdkVersion(setup.targetSdk)
-        versionCode(1)
-        versionName("1.0")
     }
 
     buildTypes {
