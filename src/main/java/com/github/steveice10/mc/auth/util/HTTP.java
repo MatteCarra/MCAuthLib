@@ -152,7 +152,7 @@ public class HTTP {
                     } else if (error.equals("authorization_pending")) {
                         throw new AuthPendingException(errorMessage);
                     } else {
-                        throw new RequestException(errorMessage);
+                        throw new RequestException(error + ": " + errorMessage + ". json= " + response.toString());
                     }
                 }
             }
