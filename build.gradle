@@ -8,8 +8,6 @@ plugins {
 
 android {
     compileSdkVersion(setup.compileSdk)
-    buildToolsVersion(setup.buildTools)
-
     compileOptions {
         coreLibraryDesugaringEnabled true
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -27,9 +25,10 @@ android {
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
+    namespace 'mattecarra.chatcraft.mcauthlib'
 }
 
 dependencies {
-    api 'com.google.code.gson:gson:2.8.6'
-    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'
+    api 'com.google.code.gson:gson:2.10.1'
+    coreLibraryDesugaring "com.android.tools:desugar_jdk_libs:${versions.desugar}"
 }
